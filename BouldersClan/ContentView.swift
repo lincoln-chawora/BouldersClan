@@ -108,6 +108,7 @@ struct ContentView: View {
         }
     }
     
+    // Removes items from list display view.
     func removeItems(at offsets: IndexSet) {
         climbs.items.remove(atOffsets: offsets)
     }
