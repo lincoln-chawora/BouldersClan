@@ -14,6 +14,6 @@ struct Climb: Identifiable, Codable {
     let attempts: Int
     let selectedColourIndex: Int
     var colours = ["White", "Green", "Blue", "Black", "Pink", "Red", "Purple", "Yellow", "Orange"]
-    let selectedColour: String
+    let routeColour: String
     let date: Date
 }

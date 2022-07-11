@@ -17,7 +17,7 @@ struct AddClimbView: View {
     @State private var selectedColourIndex = 0
     @State private var date = Date.now
     let colours = ["White", "Green", "Blue", "Black", "Pink", "Red", "Purple", "Yellow", "Orange"]
-    @State private var selectedColour = "White"
+    @State private var routeColour = "White"
     
     func gradeCalculation(_ direction: Bool) {
         if direction == true && grade < 10 {
@@ -84,7 +84,7 @@ struct AddClimbView: View {
                 .buttonStyle(.bordered)
                 .buttonBorderShape(.capsule)
                 Spacer()
-                Picker("Grade color", selection: $selectedColour, content: {
+                Picker("Grade color", selection: $routeColour, content: {
                     ForEach(colours, id: \.self, content: { color in
                         Text(color)
                     })
@@ -99,7 +99,7 @@ struct AddClimbView: View {
                                 attempts: attempts,
                                 selectedColourIndex: selectedColourIndex,
                                 colours: colours,
-                                selectedColour: selectedColour,
+                                routeColour: routeColour,
                                 date: date
                             )
                         // Add climb into array.

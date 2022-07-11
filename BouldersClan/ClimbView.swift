@@ -8,32 +8,28 @@
 import SwiftUI
 
 struct ClimbView: View {
-    var grade: Int
-    var isSent: Bool
-    var attempts: Int
-    var date: Date
-    var selectedColour: String
+    let climb: Climb
     
     var body: some View {
         Form {
             VStack {
                 HStack {
-                    Text("V\(grade)")
+                    Text("V\(climb.grade)")
                         .font(.largeTitle)
-                        .foregroundColor(colorToShow(selectedColour))
+                        .foregroundColor(colorToShow(climb.routeColour))
                     Spacer()
-                    Text("\(date.formatted(date: .omitted, time: .shortened))")
+                    Text("\(climb.date.formatted(date: .omitted, time: .shortened))")
                 }
                 HStack {
                     VStack(alignment: .leading) {
                         Text("Attemps")
-                        Text(attempts == 1 && isSent ? "Flashed" : "\(attempts) attemps")
+                        Text(climb.attempts == 1 && climb.isSent ? "Flashed" : "\(climb.attempts) attemps")
                             .font(.title2)
                     }
                     Spacer()
                     VStack(alignment: .leading) {
                         Text("Completion")
-                        Text(isSent ? "Sent" : "No send")
+                        Text(climb.isSent ? "Sent" : "No send")
                             .font(.title2)
                     }
                 }
@@ -51,7 +47,8 @@ struct ClimbView: View {
 }
 
 struct ClimbView_Previews: PreviewProvider {
+    static var climbs = Climbs()
     static var previews: some View {
-        ClimbView(grade: 0, isSent: true, attempts: 1, date: Date.now, selectedColour: "White")
+        ClimbView(climb: climbs.items[0])
     }
 }
