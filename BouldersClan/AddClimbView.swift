@@ -42,6 +42,7 @@ struct AddClimbView: View {
                 Text("Current Project")
                     .font(.title)
                 
+                // Display mode switcher.
                 Button("Switch view") {
                     isShowingGridView.toggle()
                 }
