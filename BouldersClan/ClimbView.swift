@@ -9,39 +9,81 @@ import SwiftUI
 
 struct ClimbView: View {
     let climb: Climb
+    @State private var climbNote = "Enter your bio"
+    @FocusState private var isTextFieldFocused: Bool
+
     
     var body: some View {
         Form {
             VStack {
-                HStack {
-                    Text("V\(climb.grade)")
-                        .font(.largeTitle)
-                        .foregroundColor(colorToShow(climb.routeColour))
+                HStack(alignment: .top) {
+                        Text("V\(climb.grade)")
+                            .padding()
+                            .font(.largeTitle)
+                            .foregroundColor(colorToShow(climb.routeColour))
+                            .background(PolygonShape(sides: 6).stroke(colorToShow(climb.routeColour), lineWidth: 3))
+                        
                     Spacer()
-                    Text("\(climb.date.formatted(date: .omitted, time: .shortened))")
+                    
+                    VStack(alignment: .leading) {
+                        Text("\(climb.date.formatted(date: .abbreviated, time: .omitted))")
+                        Text("\(climb.date.formatted(date: .omitted, time: .shortened))")
+                    }
                 }
-                HStack {
+                
+                Rectangle()
+                    .frame(height: 1)
+                    .foregroundColor(.gray)
+                    .padding(.vertical, 3)
+                
+                HStack(alignment: .top) {
                     VStack(alignment: .leading) {
                         Text("Attemps")
-                        Text(climb.attempts == 1 && climb.isSent ? "Flashed" : "\(climb.attempts) attemps")
-                            .font(.title2)
+                        if climb.attempts == 1 && climb.isSent {
+                            Label("Flashed", systemImage: "bolt")
+                                .font(.title)
+                                .foregroundColor(.yellow)
+                        } else {
+                            Text("\(climb.attempts) attemps")
+                                .font(.title)
+                        }
+                        
                     }
                     Spacer()
                     VStack(alignment: .leading) {
                         Text("Completion")
                         Text(climb.isSent ? "Sent" : "No send")
-                            .font(.title2)
+                            .font(.title)
+                            .foregroundColor(climb.isSent ? .green : .red)
                     }
                 }
-                HStack {
-                    VStack(alignment: .center) {
-                        Text("Route")
-                        Rectangle()
-                            .fill(.gray)
-                            .frame(width: 300, height: 300)
-                    }
+                
+                Rectangle()
+                    .frame(height: 1)
+                    .foregroundColor(.gray)
+                    .padding(.vertical, 3)
+                
+                VStack (alignment: .leading) {
+                    Text("Notes")
+                    TextEditor(text: $climbNote)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal)
+                        .focused($isTextFieldFocused)
+                    
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundColor(.gray)
+                        .padding(.vertical, 3)
+                    
+                    
+                    Text("Route")
+                    Image("climbroute")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(maxWidth: .infinity)
                 }
             }
+            .padding(.top, 20)
         }
     }
 }

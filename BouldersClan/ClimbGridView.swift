@@ -23,12 +23,32 @@ struct ClimbGridView: View {
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(climbs.items) { climb in
                     NavigationLink(destination: ClimbView(climb: climb)) {
-                        Text("V\(climb.grade)")
-                            .padding()
-                            .foregroundColor(.white)
-                            .background(colorToShow(climb.routeColour))
-                            .clipShape(PolygonShape(sides: 6).rotation(Angle.degrees(90)))
-                      }
+                        VStack(alignment: .center) {
+                            Text("V\(climb.grade)")
+                                .font(.title2)
+                                .padding()
+                                .foregroundColor(.black)
+                                .background(PolygonShape(sides: 6).stroke(colorToShow(climb.routeColour), lineWidth: 2))
+                            
+                            if climb.attempts == 1 && climb.isSent {
+                                Label("\(climb.attempts)", systemImage: "bolt.fill")
+                                    .labelStyle(.iconOnly)
+                                    .foregroundColor(.black)
+                            } else {
+                                if !climb.isSent {
+                                    Text("X")
+                                        .bold()
+                                        .foregroundColor(.red)
+                                } else {
+                                    Text("\(climb.attempts)")
+                                        .padding(-1)
+                                        .font(.headline)
+                                        .foregroundColor(.black)
+                                }
+                            }
+                            
+                        }
+                    }
                 }
             }
             .padding(.horizontal)
