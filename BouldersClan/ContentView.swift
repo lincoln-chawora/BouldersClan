@@ -41,18 +41,20 @@ struct ContentView: View {
         NavigationView {
             Section {
                 VStack () {
-                    VStack (alignment: .leading) {
-                        Text("Key projects")
-                            .padding(.horizontal)
-                        
-                        FilteredClimbView(filter: .isKeyProject)
+                    if isShowingGridView {
+                        VStack (alignment: .leading) {
+                            Text("Key projects")
+                                .padding(.horizontal)
+                            
+                            FilteredClimbsView(filter: .isKeyProject)
+                        }
                     }
                     
-                    Text("Todays session")
-                        .font(.title)
-                    
-                    
                     if isShowingGridView {
+                        VStack(alignment: .leading) {
+                            Text("Todays session")
+                                .font(.title)
+                        }
                         ClimbGridView(climbs: climbs)
                     } else {
                         ClimbRowView(climbs: climbs)

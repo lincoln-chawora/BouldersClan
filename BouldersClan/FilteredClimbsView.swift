@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FilteredClimbView: View {
+struct FilteredClimbsView: View {
     @StateObject var climbs = Climbs()
     
     enum FilterType {
@@ -61,8 +61,8 @@ struct FilteredClimbView: View {
     }
 }
 
-struct FilteredClimbView_Previews: PreviewProvider {
+struct FilteredClimbsView_Previews: PreviewProvider {
     static var previews: some View {
-        FilteredClimbView(filter: .none)
+        FilteredClimbsView(filter: .none)
     }
 }

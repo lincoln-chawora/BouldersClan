@@ -29,7 +29,7 @@ struct ClimbView: View {
                         Button {
                             print("Stuff")
                         } label: {
-                            Label("Project", systemImage: climb.isKeyProject ? "star.fill" : "start")
+                            Label("Project", systemImage: climb.isKeyProject ? "star.fill" : "star")
                                 .font(.title2)
                                 .foregroundColor(.black)
                         }
