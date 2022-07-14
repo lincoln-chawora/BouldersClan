@@ -11,7 +11,7 @@ struct FilteredClimbsView: View {
     @StateObject var climbs = Climbs()
     
     enum FilterType {
-        case none, isSent, notSent, isKeyProject
+        case none, isSent, notSent, isKeyProject, today
     }
     
     let filter: FilterType
@@ -24,7 +24,7 @@ struct FilteredClimbsView: View {
         GridItem(.flexible())
     ]
     
-    var keyProjects: [Climb] {
+    var filteredProjects: [Climb] {
         switch filter {
             case .none:
                 return climbs.items
@@ -34,30 +34,33 @@ struct FilteredClimbsView: View {
                 return climbs.items.filter { !$0.isSent }
             case .isKeyProject:
                 return climbs.items.filter { $0.isKeyProject }
+            case .today:
+            return climbs.items.filter { Calendar.current.isDateInYesterday($0.date) }
         }
     }
     
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 20) {
-            ForEach(keyProjects) { climb in
-                NavigationLink(destination: ClimbView(climb: climb)) {
-                    VStack(alignment: .center) {
-                        Text("V\(climb.grade)")
-                            .font(.title2)
-                            .padding()
-                            .foregroundColor(.black)
-                            .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour), lineWidth: 2))
-                        
-                        Text("\(climb.attempts)")
-                            .padding(-1)
-                            .font(.headline)
-                            .foregroundColor(.black)
+        ScrollView(.horizontal) {
+            HStack(spacing: 20) {
+                ForEach(filteredProjects) { climb in
+                    NavigationLink(destination: ClimbView(climb: climb)) {
+                        VStack(alignment: .center) {
+                            Text("V\(climb.grade)")
+                                .font(.title2)
+                                .padding()
+                                .foregroundColor(.black)
+                                .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour), lineWidth: 2))
+                            
+                            Text("\(climb.attempts)")
+                                .padding(-1)
+                                .font(.headline)
+                                .foregroundColor(.black)
 
+                        }
                     }
                 }
             }
         }
-
     }
 }
 

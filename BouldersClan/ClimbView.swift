@@ -27,7 +27,8 @@ struct ClimbView: View {
                     
                     VStack(alignment: .leading) {
                         Button {
-                            print("Stuff")
+                            // @todo:: Add functionality to update isKeyProject to true
+                            print("Add climb to key projects")
                         } label: {
                             Label("Project", systemImage: climb.isKeyProject ? "star.fill" : "star")
                                 .font(.title2)

@@ -51,7 +51,6 @@ struct ClimbGridView: View {
                     }
                 }
             }
-            .padding(.horizontal)
         }
     }
 }

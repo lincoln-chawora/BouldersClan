@@ -44,24 +44,27 @@ struct ContentView: View {
                     if isShowingGridView {
                         VStack (alignment: .leading) {
                             Text("Key projects")
-                                .padding(.horizontal)
+                                .font(.title)
                             
                             FilteredClimbsView(filter: .isKeyProject)
                         }
+                        .padding(.horizontal)
                     }
                     
                     if isShowingGridView {
                         VStack(alignment: .leading) {
-                            Text("Todays session")
+                            Text("Recent climbs")
                                 .font(.title)
+                            
+                            ClimbGridView(climbs: climbs)
                         }
-                        ClimbGridView(climbs: climbs)
+                        .padding(.horizontal)
                     } else {
                         ClimbRowView(climbs: climbs)
                     }
                 }
             }
-            .navigationTitle("BouldersClan")
+            .navigationBarTitleDisplayMode(.inline)
         }
         
         Section {

@@ -38,7 +38,7 @@ struct AddClimbView: View {
     var body: some View {
         VStack {
             HStack() {
-                Text("Current Project")
+                Text("Add climb")
                     .font(.title)
                 
                 Spacer()
