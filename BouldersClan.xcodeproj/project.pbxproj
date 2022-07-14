@@ -18,6 +18,7 @@
 		D36E6BF4287BF5D900A7AE26 /* ClimbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36E6BF3287BF5D900A7AE26 /* ClimbView.swift */; };
 		D36E6BF6287BF6CA00A7AE26 /* AddClimbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36E6BF5287BF6CA00A7AE26 /* AddClimbView.swift */; };
 		D36E6BF8287BF8DC00A7AE26 /* Climb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36E6BF7287BF8DC00A7AE26 /* Climb.swift */; };
+		D3D47A1A287F928400B99EE1 /* FilteredClimbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D47A19287F928400B99EE1 /* FilteredClimbView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		D36E6BF3287BF5D900A7AE26 /* ClimbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbView.swift; sourceTree = "<group>"; };
 		D36E6BF5287BF6CA00A7AE26 /* AddClimbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClimbView.swift; sourceTree = "<group>"; };
 		D36E6BF7287BF8DC00A7AE26 /* Climb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Climb.swift; sourceTree = "<group>"; };
+		D3D47A19287F928400B99EE1 /* FilteredClimbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredClimbView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				D303F62E287C333300E64957 /* ClimbGridView.swift */,
 				D303F62C287C2E9400E64957 /* ClimbRowView.swift */,
 				D36E6BF3287BF5D900A7AE26 /* ClimbView.swift */,
+				D3D47A19287F928400B99EE1 /* FilteredClimbView.swift */,
 				D36E6BE5287BF51400A7AE26 /* Assets.xcassets */,
 				D36E6BE7287BF51400A7AE26 /* Preview Content */,
 			);
@@ -167,6 +170,7 @@
 				D303F62D287C2E9400E64957 /* ClimbRowView.swift in Sources */,
 				D303F62F287C333300E64957 /* ClimbGridView.swift in Sources */,
 				D36E6BE2287BF50400A7AE26 /* BouldersClanApp.swift in Sources */,
+				D3D47A1A287F928400B99EE1 /* FilteredClimbView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

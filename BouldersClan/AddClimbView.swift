@@ -27,7 +27,6 @@ struct AddClimbView: View {
         if direction == false && grade > 0 {
             grade -= 1
         }
-    
     }
     
     func resetClimb() {
@@ -48,7 +47,7 @@ struct AddClimbView: View {
                 Button {
                     isShowingGridView.toggle()
                 } label: {
-                    Label("Grid", systemImage: isShowingGridView ? "rectangle.grid.1x2" : "square.grid.2x2")
+                    Label("Grid", systemImage: isShowingGridView ? "rectangle.grid.1x2" : "square.grid.3x3")
                         .labelStyle(.iconOnly)
                         .font(.largeTitle)
                         .foregroundColor(.black)
@@ -106,9 +105,9 @@ struct AddClimbView: View {
                                 isSent: isSent,
                                 attempts: attempts,
                                 selectedColourIndex: selectedColourIndex,
-                                colours: colours,
                                 routeColour: routeColour,
-                                date: date
+                                date: date,
+                                isKeyProject: attempts > 5 && !isSent ? true : false
                             )
                         // Add climb into array.
                         climbs.items.insert(item, at: 0)

@@ -28,7 +28,7 @@ struct ClimbGridView: View {
                                 .font(.title2)
                                 .padding()
                                 .foregroundColor(.black)
-                                .background(PolygonShape(sides: 6).stroke(colorToShow(climb.routeColour), lineWidth: 2))
+                                .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour), lineWidth: 2))
                             
                             if climb.attempts == 1 && climb.isSent {
                                 Label("\(climb.attempts)", systemImage: "bolt.fill")

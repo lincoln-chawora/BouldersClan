@@ -16,4 +16,5 @@ struct Climb: Identifiable, Codable {
     var colours = ["White", "Green", "Blue", "Black", "Pink", "Red", "Purple", "Yellow", "Orange"]
     let routeColour: String
     let date: Date
+    var isKeyProject: Bool
 }

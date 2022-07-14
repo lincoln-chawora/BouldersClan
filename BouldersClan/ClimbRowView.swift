@@ -18,7 +18,7 @@ struct ClimbRowView: View {
                     HStack {
                         VStack {
                             Rectangle()
-                                .fill(colorToShow(climb.routeColour))
+                                .fill(routeColour(climb.routeColour))
                                 .frame(width: 5, height: 50)
                         }
                         VStack {

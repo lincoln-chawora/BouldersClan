@@ -8,24 +8,32 @@
 import SwiftUI
 
 struct ClimbView: View {
-    let climb: Climb
+    var climb: Climb
     @State private var climbNote = "Enter your bio"
-    @FocusState private var isTextFieldFocused: Bool
-
     
     var body: some View {
         Form {
             VStack {
                 HStack(alignment: .top) {
+                    VStack {
                         Text("V\(climb.grade)")
                             .padding()
                             .font(.largeTitle)
-                            .foregroundColor(colorToShow(climb.routeColour))
-                            .background(PolygonShape(sides: 6).stroke(colorToShow(climb.routeColour), lineWidth: 3))
+                            .foregroundColor(routeColour(climb.routeColour))
+                            .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour), lineWidth: 3))
+                    }
                         
                     Spacer()
                     
                     VStack(alignment: .leading) {
+                        Button {
+                            print("Stuff")
+                        } label: {
+                            Label("Project", systemImage: climb.isKeyProject ? "star.fill" : "start")
+                                .font(.title2)
+                                .foregroundColor(.black)
+                        }
+                        
                         Text("\(climb.date.formatted(date: .abbreviated, time: .omitted))")
                         Text("\(climb.date.formatted(date: .omitted, time: .shortened))")
                     }
@@ -68,7 +76,6 @@ struct ClimbView: View {
                     TextEditor(text: $climbNote)
                         .foregroundColor(.secondary)
                         .padding(.horizontal)
-                        .focused($isTextFieldFocused)
                     
                     Rectangle()
                         .frame(height: 1)

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-func colorToShow(_ gradeColour: String) -> Color {
+func routeColour(_ gradeColour: String) -> Color {
     switch gradeColour {
         case "Green":
             return .green
@@ -33,17 +33,30 @@ func colorToShow(_ gradeColour: String) -> Color {
 }
 
 struct ContentView: View {
-    
     @StateObject var climbs = Climbs()
     @State private var isShowingGridView = true
+    let colours = ["White", "Green", "Blue", "Black", "Pink", "Red", "Purple", "Yellow", "Orange"]
     
     var body: some View {
         NavigationView {
             Section {
-                if isShowingGridView {
-                    ClimbGridView(climbs: climbs)
-                } else {
-                    ClimbRowView(climbs: climbs)
+                VStack () {
+                    VStack (alignment: .leading) {
+                        Text("Key projects")
+                            .padding(.horizontal)
+                        
+                        FilteredClimbView(filter: .isKeyProject)
+                    }
+                    
+                    Text("Todays session")
+                        .font(.title)
+                    
+                    
+                    if isShowingGridView {
+                        ClimbGridView(climbs: climbs)
+                    } else {
+                        ClimbRowView(climbs: climbs)
+                    }
                 }
             }
             .navigationTitle("BouldersClan")
