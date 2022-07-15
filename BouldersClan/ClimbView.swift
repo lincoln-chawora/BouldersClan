@@ -16,8 +16,8 @@ struct ClimbView: View {
             VStack {
                 HStack(alignment: .top) {
                     VStack {
-                        Text("V\(climb.grade)")
-                            .padding()
+                        Text(climb.formattedGrade)
+                            .padding(20)
                             .font(.largeTitle)
                             .foregroundColor(routeColour(climb.routeColour))
                             .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour), lineWidth: 3))
@@ -35,8 +35,8 @@ struct ClimbView: View {
                                 .foregroundColor(.black)
                         }
                         
-                        Text("\(climb.date.formatted(date: .abbreviated, time: .omitted))")
-                        Text("\(climb.date.formatted(date: .omitted, time: .shortened))")
+                        Text(climb.climbDate)
+                        Text(climb.climbTime)
                     }
                 }
                 
@@ -53,7 +53,7 @@ struct ClimbView: View {
                                 .font(.title)
                                 .foregroundColor(.yellow)
                         } else {
-                            Text("\(climb.attempts) attemps")
+                            Text(climb.formattedAttempts(short: false))
                                 .font(.title)
                         }
                         
@@ -82,7 +82,6 @@ struct ClimbView: View {
                         .frame(height: 1)
                         .foregroundColor(.gray)
                         .padding(.vertical, 3)
-                    
                     
                     Text("Route")
                     Image("climbroute")

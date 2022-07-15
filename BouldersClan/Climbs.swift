@@ -18,7 +18,7 @@ class Climbs: ObservableObject {
     }
     
     init() {
-        // Read data from the user faults targetting the key "Climbs".
+        // Read data from the userdefaults targeting the key "Climbs".
         if let savedClimbs = UserDefaults.standard.data(forKey: "Items") {
             // Decode data as an array of expense items (.self means the actual array type of Climb).
             if let decodedClimbs = try? JSONDecoder().decode([Climb].self, from: savedClimbs) {

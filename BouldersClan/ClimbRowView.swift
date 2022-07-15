@@ -23,17 +23,19 @@ struct ClimbRowView: View {
                         }
                         VStack {
                             HStack {
-                                Text("\(climb.date.formatted(date: .numeric, time: .omitted))")
+                                Text(climb.climbDate)
                                 Spacer()
-                                Text("\(climb.date.formatted(date: .omitted, time: .shortened))")
+                                Text(climb.climbTime)
                             }
                         
                             HStack {
-                                Text("V\(climb.grade)")
+                                Text(climb.formattedGrade)
                                 Spacer()
-                                Text(climb.attempts == 1 && climb.isSent ? "Flashed" : "\(climb.attempts) attemps")
+                                Text(climb.attempts == 1 && climb.isSent ? "Flashed" : climb.formattedAttempts(short: false))
+                                    .frame(width: 100, alignment: .leading)
                                 Spacer()
                                 Text(climb.isSent ? "Sent" : "No send")
+                                    .frame(width: 70, alignment: .trailing)
                             }
                         }
                         VStack {

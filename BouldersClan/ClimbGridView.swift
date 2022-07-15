@@ -24,14 +24,14 @@ struct ClimbGridView: View {
                 ForEach(climbs.items) { climb in
                     NavigationLink(destination: ClimbView(climb: climb)) {
                         VStack(alignment: .center) {
-                            Text("V\(climb.grade)")
+                            Text(climb.formattedGrade)
                                 .font(.title2)
-                                .padding()
+                                .padding(12)
                                 .foregroundColor(.black)
                                 .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour), lineWidth: 2))
                             
                             if climb.attempts == 1 && climb.isSent {
-                                Label("\(climb.attempts)", systemImage: "bolt.fill")
+                                Label(climb.formattedAttempts(short: true), systemImage: "bolt.fill")
                                     .labelStyle(.iconOnly)
                                     .foregroundColor(.black)
                             } else {
@@ -40,7 +40,7 @@ struct ClimbGridView: View {
                                         .bold()
                                         .foregroundColor(.red)
                                 } else {
-                                    Text("\(climb.attempts)")
+                                    Text(climb.formattedAttempts(short: true))
                                         .padding(-1)
                                         .font(.headline)
                                         .foregroundColor(.black)

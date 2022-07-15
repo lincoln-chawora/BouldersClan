@@ -17,4 +17,20 @@ struct Climb: Identifiable, Codable {
     let routeColour: String
     let date: Date
     var isKeyProject: Bool
+    
+    var formattedGrade: String {
+        return "V\(grade)"
+    }
+    
+    func formattedAttempts(short: Bool) -> String {
+        short ? "\(attempts)" : "\(attempts) attempts"
+    }
+    
+    var climbDate: String {
+        date.formatted(date: .abbreviated, time: .omitted)
+    }
+    
+    var climbTime: String {
+        date.formatted(date: .omitted, time: .shortened)
+    }
 }
