@@ -35,9 +35,7 @@ func routeColour(_ gradeColour: String) -> Color {
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
     // Filter by isSent or Not -:>{ predicate: NSPredicate(format: "isSent == %i", 0) }
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.date)
-    ]) var climbs: FetchedResults<Climb>
+    @FetchRequest(sortDescriptors: []) var climbs: FetchedResults<Climb>
     
     @State private var isShowingGridView = true
     
@@ -72,7 +70,7 @@ struct ContentView: View {
         }
         
         Section {
-            AddClimbView(climbs: _climbs, isShowingGridView: $isShowingGridView)
+            AddClimbView(isShowingGridView: $isShowingGridView)
         }
     }
 }

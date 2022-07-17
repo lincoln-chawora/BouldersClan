@@ -10,12 +10,6 @@ import SwiftUI
 
 struct AddClimbView: View {
     @Environment(\.managedObjectContext) var moc
-    
-    // Filter by isSent or Not -:>{ predicate: NSPredicate(format: "isSent == %i", 0) }
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.date)
-    ]) var climbs: FetchedResults<Climb>
-    
     @Binding var isShowingGridView: Bool
     
     @State private var isSent = true

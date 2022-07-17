@@ -51,6 +51,11 @@ struct ClimbRowView: View {
             }
             .onDelete(perform: removeItems)
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                EditButton()
+            }
+        }
     }
     
     // Removes items from list display view.

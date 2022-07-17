@@ -11,7 +11,6 @@ struct ClimbView: View {
     @Environment(\.managedObjectContext) var moc
     @ObservedObject var climb: Climb
     @State private var climbNote = ""
-    @State private var isKeyProject = false
     
     var body: some View {
         ScrollView {
@@ -29,9 +28,11 @@ struct ClimbView: View {
                 VStack(alignment: .leading) {
                     // @todo: Fix toggling issue
                     Button {
-                        climb.isKeyProject = isKeyProject
-                        isKeyProject.toggle()
-                        try? moc.save()
+                        climb.isKeyProject.toggle()
+                        climb.isKeyProject = climb.isKeyProject
+                        if moc.hasChanges {
+                            try? moc.save()
+                        }
                     } label: {
                         Label("Project", systemImage: climb.isKeyProject ? "star.fill" : "star")
                             .font(.title2)
