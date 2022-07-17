@@ -5,10 +5,17 @@
 //  Created by Lincoln Chawora on 11/07/2022.
 //
 
+import CoreData
 import SwiftUI
 
 struct AddClimbView: View {
-    @ObservedObject var climbs: Climbs
+    @Environment(\.managedObjectContext) var moc
+    
+    // Filter by isSent or Not -:>{ predicate: NSPredicate(format: "isSent == %i", 0) }
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.date)
+    ]) var climbs: FetchedResults<Climb>
+    
     @Binding var isShowingGridView: Bool
     
     @State private var isSent = true
@@ -100,17 +107,20 @@ struct AddClimbView: View {
                 Spacer()
                 Button("Save") {
                     withAnimation {
-                        let item = Climb(
-                                grade: grade,
-                                isSent: isSent,
-                                attempts: attempts,
-                                selectedColourIndex: selectedColourIndex,
-                                routeColour: routeColour,
-                                date: date,
-                                isKeyProject: attempts > 5 && !isSent ? true : false
-                            )
+                        let climb = Climb(context: moc)
+                        climb.id = UUID()
+                        climb.grade = Int16(grade)
+                        climb.attempts = Int16(attempts)
+                        climb.isSent = isSent
+                        climb.routeColour = routeColour
+                        climb.date = Date.now
+                        climb.isKeyProject = climb.attempts > 5 && climb.isSent == false
+                        climb.selectedColourIndex = Int16(selectedColourIndex)
+
+                        if moc.hasChanges {
+                          try? moc.save()
+                        }
                         // Add climb into array.
-                        climbs.items.insert(item, at: 0)
                     }
                     resetClimb()
                 }
@@ -122,11 +132,5 @@ struct AddClimbView: View {
 
         }
         .padding(.horizontal)
-    }
-}
-
-struct AddClimbView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddClimbView(climbs: Climbs(), isShowingGridView: .constant(true))
     }
 }

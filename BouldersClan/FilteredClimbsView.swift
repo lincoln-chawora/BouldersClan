@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct FilteredClimbsView: View {
-    @StateObject var climbs = Climbs()
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.date)
+    ]) var climbs: FetchedResults<Climb>
     
     enum FilterType {
         case none, isSent, notSent, isKeyProject, today
@@ -27,15 +29,15 @@ struct FilteredClimbsView: View {
     var filteredProjects: [Climb] {
         switch filter {
             case .none:
-                return climbs.items
+                return climbs.reversed()
             case .isSent:
-                return climbs.items.filter { $0.isSent }
+                return climbs.filter { $0.isSent }
             case .notSent:
-                return climbs.items.filter { !$0.isSent }
+                return climbs.filter { !$0.isSent }
             case .isKeyProject:
-                return climbs.items.filter { $0.isKeyProject }
+                return climbs.filter { $0.isKeyProject }
             case .today:
-            return climbs.items.filter { Calendar.current.isDateInToday($0.date) }
+                return climbs.filter { Calendar.current.isDateInToday($0.date!) }
         }
     }
     
@@ -49,7 +51,7 @@ struct FilteredClimbsView: View {
                                 .font(.title2)
                                 .padding()
                                 .foregroundColor(.black)
-                                .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour), lineWidth: 2))
+                                .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour!), lineWidth: 2))
                             
                             Text(climb.formattedAttempts(short: true))
                                 .padding(-1)

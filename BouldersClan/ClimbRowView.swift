@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct ClimbRowView: View {
-    @ObservedObject var climbs: Climbs
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.date)
+    ]) var climbs: FetchedResults<Climb>
     
     var body: some View {
         // @todo:: Make this Lazy.
         List {
-            ForEach(climbs.items) { climb in
+            ForEach(climbs) { climb in
                 NavigationLink(destination: ClimbView(climb: climb)) {
                     HStack {
                         VStack {
                             Rectangle()
-                                .fill(routeColour(climb.routeColour))
+                                .fill(routeColour(climb.routeColour!))
                                 .frame(width: 5, height: 50)
                         }
                         VStack {
@@ -52,13 +55,17 @@ struct ClimbRowView: View {
     
     // Removes items from list display view.
     func removeItems(at offsets: IndexSet) {
-        climbs.items.remove(atOffsets: offsets)
-    }
-}
+        for index in offsets {
+            let climb = climbs[index]
+            moc.delete(climb)
+        }
 
-struct ClimbRowView_Previews: PreviewProvider {
-    static var climbs = Climbs()
-    static var previews: some View {
-        ClimbRowView(climbs: climbs)
+        do {
+            if moc.hasChanges {
+              try moc.save()
+            }
+        } catch {
+            print("Lol something went wrong")
+        }
     }
 }

@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ClimbGridView: View {
-    let climbs: Climbs
-        
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.date)
+    ]) var climbs: FetchedResults<Climb>
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -21,14 +25,14 @@ struct ClimbGridView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(climbs.items) { climb in
+                ForEach(climbs) { climb in
                     NavigationLink(destination: ClimbView(climb: climb)) {
                         VStack(alignment: .center) {
                             Text(climb.formattedGrade)
                                 .font(.title2)
                                 .padding(12)
                                 .foregroundColor(.black)
-                                .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour), lineWidth: 2))
+                                .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour!), lineWidth: 2))
                             
                             if climb.attempts == 1 && climb.isSent {
                                 Label(climb.formattedAttempts(short: true), systemImage: "bolt.fill")
@@ -52,12 +56,5 @@ struct ClimbGridView: View {
                 }
             }
         }
-    }
-}
-
-struct ClimbGridView_Previews: PreviewProvider {
-    static var climbs = Climbs()
-    static var previews: some View {
-        ClimbGridView(climbs: climbs)
     }
 }

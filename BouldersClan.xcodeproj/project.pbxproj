@@ -14,10 +14,12 @@
 		D36E6BE4287BF50400A7AE26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36E6BE3287BF50400A7AE26 /* ContentView.swift */; };
 		D36E6BE6287BF51400A7AE26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D36E6BE5287BF51400A7AE26 /* Assets.xcassets */; };
 		D36E6BE9287BF51400A7AE26 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D36E6BE8287BF51400A7AE26 /* Preview Assets.xcassets */; };
-		D36E6BF2287BF5AD00A7AE26 /* Climbs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36E6BF1287BF5AD00A7AE26 /* Climbs.swift */; };
 		D36E6BF4287BF5D900A7AE26 /* ClimbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36E6BF3287BF5D900A7AE26 /* ClimbView.swift */; };
 		D36E6BF6287BF6CA00A7AE26 /* AddClimbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36E6BF5287BF6CA00A7AE26 /* AddClimbView.swift */; };
-		D36E6BF8287BF8DC00A7AE26 /* Climb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36E6BF7287BF8DC00A7AE26 /* Climb.swift */; };
+		D3A541202883638500DE1D70 /* BouldersClan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D3A5411E2883638500DE1D70 /* BouldersClan.xcdatamodeld */; };
+		D3A541232883674E00DE1D70 /* Climb+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A541212883674E00DE1D70 /* Climb+CoreDataClass.swift */; };
+		D3A541242883674E00DE1D70 /* Climb+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A541222883674E00DE1D70 /* Climb+CoreDataProperties.swift */; };
+		D3A54126288367B600DE1D70 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A54125288367B600DE1D70 /* DataController.swift */; };
 		D3D47A1A287F928400B99EE1 /* FilteredClimbsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D47A19287F928400B99EE1 /* FilteredClimbsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,10 +32,12 @@
 		D36E6BE3287BF50400A7AE26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D36E6BE5287BF51400A7AE26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D36E6BE8287BF51400A7AE26 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D36E6BF1287BF5AD00A7AE26 /* Climbs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Climbs.swift; sourceTree = "<group>"; };
 		D36E6BF3287BF5D900A7AE26 /* ClimbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbView.swift; sourceTree = "<group>"; };
 		D36E6BF5287BF6CA00A7AE26 /* AddClimbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClimbView.swift; sourceTree = "<group>"; };
-		D36E6BF7287BF8DC00A7AE26 /* Climb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Climb.swift; sourceTree = "<group>"; };
+		D3A5411F2883638500DE1D70 /* BouldersClan.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BouldersClan.xcdatamodel; sourceTree = "<group>"; };
+		D3A541212883674E00DE1D70 /* Climb+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Climb+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D3A541222883674E00DE1D70 /* Climb+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Climb+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D3A54125288367B600DE1D70 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		D3D47A19287F928400B99EE1 /* FilteredClimbsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredClimbsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,16 +71,18 @@
 		D36E6BE0287BF50400A7AE26 /* BouldersClan */ = {
 			isa = PBXGroup;
 			children = (
+				D3A541212883674E00DE1D70 /* Climb+CoreDataClass.swift */,
 				D36742A3287CD6C200C1F7CF /* PolygonShape.swift */,
+				D3A54125288367B600DE1D70 /* DataController.swift */,
+				D3A541222883674E00DE1D70 /* Climb+CoreDataProperties.swift */,
 				D36E6BE1287BF50400A7AE26 /* BouldersClanApp.swift */,
-				D36E6BF1287BF5AD00A7AE26 /* Climbs.swift */,
-				D36E6BF7287BF8DC00A7AE26 /* Climb.swift */,
 				D36E6BE3287BF50400A7AE26 /* ContentView.swift */,
 				D36E6BF5287BF6CA00A7AE26 /* AddClimbView.swift */,
 				D303F62E287C333300E64957 /* ClimbGridView.swift */,
 				D303F62C287C2E9400E64957 /* ClimbRowView.swift */,
 				D36E6BF3287BF5D900A7AE26 /* ClimbView.swift */,
 				D3D47A19287F928400B99EE1 /* FilteredClimbsView.swift */,
+				D3A5411E2883638500DE1D70 /* BouldersClan.xcdatamodeld */,
 				D36E6BE5287BF51400A7AE26 /* Assets.xcassets */,
 				D36E6BE7287BF51400A7AE26 /* Preview Content */,
 			);
@@ -162,11 +168,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D36E6BF4287BF5D900A7AE26 /* ClimbView.swift in Sources */,
-				D36E6BF8287BF8DC00A7AE26 /* Climb.swift in Sources */,
 				D36742A4287CD6C200C1F7CF /* PolygonShape.swift in Sources */,
-				D36E6BF2287BF5AD00A7AE26 /* Climbs.swift in Sources */,
+				D3A541202883638500DE1D70 /* BouldersClan.xcdatamodeld in Sources */,
 				D36E6BE4287BF50400A7AE26 /* ContentView.swift in Sources */,
 				D36E6BF6287BF6CA00A7AE26 /* AddClimbView.swift in Sources */,
+				D3A54126288367B600DE1D70 /* DataController.swift in Sources */,
+				D3A541232883674E00DE1D70 /* Climb+CoreDataClass.swift in Sources */,
+				D3A541242883674E00DE1D70 /* Climb+CoreDataProperties.swift in Sources */,
 				D303F62D287C2E9400E64957 /* ClimbRowView.swift in Sources */,
 				D303F62F287C333300E64957 /* ClimbGridView.swift in Sources */,
 				D36E6BE2287BF50400A7AE26 /* BouldersClanApp.swift in Sources */,
@@ -369,6 +377,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D3A5411E2883638500DE1D70 /* BouldersClan.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D3A5411F2883638500DE1D70 /* BouldersClan.xcdatamodel */,
+			);
+			currentVersion = D3A5411F2883638500DE1D70 /* BouldersClan.xcdatamodel */;
+			path = BouldersClan.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D36E6BD6287BF50400A7AE26 /* Project object */;
 }

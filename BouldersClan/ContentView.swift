@@ -33,9 +33,13 @@ func routeColour(_ gradeColour: String) -> Color {
 }
 
 struct ContentView: View {
-    @StateObject var climbs = Climbs()
+    @Environment(\.managedObjectContext) var moc
+    // Filter by isSent or Not -:>{ predicate: NSPredicate(format: "isSent == %i", 0) }
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.date)
+    ]) var climbs: FetchedResults<Climb>
+    
     @State private var isShowingGridView = true
-    let colours = ["White", "Green", "Blue", "Black", "Pink", "Red", "Purple", "Yellow", "Orange"]
     
     var body: some View {
         NavigationView {
@@ -56,11 +60,11 @@ struct ContentView: View {
                             Text("Recent climbs")
                                 .font(.title)
                             
-                            ClimbGridView(climbs: climbs)
+                            ClimbGridView(climbs: _climbs)
                         }
                         .padding(.horizontal)
                     } else {
-                        ClimbRowView(climbs: climbs)
+                        ClimbRowView(climbs: _climbs)
                     }
                 }
             }
@@ -68,7 +72,7 @@ struct ContentView: View {
         }
         
         Section {
-            AddClimbView(climbs: climbs, isShowingGridView: $isShowingGridView)
+            AddClimbView(climbs: _climbs, isShowingGridView: $isShowingGridView)
         }
     }
 }
