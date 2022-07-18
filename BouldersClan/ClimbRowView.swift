@@ -9,9 +9,7 @@ import SwiftUI
 
 struct ClimbRowView: View {
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.date)
-    ]) var climbs: FetchedResults<Climb>
+    let climbs: FetchedResults<Climb>
     
     var body: some View {
         // @todo:: Make this Lazy.
@@ -70,7 +68,7 @@ struct ClimbRowView: View {
               try moc.save()
             }
         } catch {
-            print("Lol something went wrong")
+            print("Failed to remove climb from row.")
         }
     }
 }

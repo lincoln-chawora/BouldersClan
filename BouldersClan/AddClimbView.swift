@@ -114,7 +114,6 @@ struct AddClimbView: View {
                         if moc.hasChanges {
                           try? moc.save()
                         }
-                        // Add climb into array.
                     }
                     resetClimb()
                 }

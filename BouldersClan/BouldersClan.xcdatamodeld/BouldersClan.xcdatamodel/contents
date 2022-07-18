@@ -9,11 +9,10 @@
         <attribute name="isSent" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="routeColour" optional="YES" attributeType="String"/>
-        <attribute name="routeColours" optional="YES" attributeType="Transformable" customClassName="[String]"/>
         <attribute name="routeImage" optional="YES" attributeType="Binary"/>
         <attribute name="selectedColourIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="Climb" positionX="-45" positionY="0" width="128" height="208"/>
+        <element name="Climb" positionX="-45" positionY="0" width="128" height="193"/>
     </elements>
 </model>

@@ -5,69 +5,30 @@
 //  Created by Lincoln Chawora on 14/07/2022.
 //
 
+import CoreData
 import SwiftUI
 
-struct FilteredClimbsView: View {
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.date)
-    ]) var climbs: FetchedResults<Climb>
+struct FilteredClimbsView<T: NSManagedObject, Content: View>: View {
+    @FetchRequest var fetchRequest: FetchedResults<T>
     
-    enum FilterType {
-        case none, isSent, notSent, isKeyProject, today
-    }
-    
-    let filter: FilterType
-    
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
-    
-    var filteredProjects: [Climb] {
-        switch filter {
-            case .none:
-                return climbs.reversed()
-            case .isSent:
-                return climbs.filter { $0.isSent }
-            case .notSent:
-                return climbs.filter { !$0.isSent }
-            case .isKeyProject:
-                return climbs.filter { $0.isKeyProject }
-            case .today:
-                return climbs.filter { Calendar.current.isDateInToday($0.date!) }
-        }
-    }
+    let content: (T) -> Content
     
     var body: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 20) {
-                ForEach(filteredProjects) { climb in
-                    NavigationLink(destination: ClimbView(climb: climb)) {
-                        VStack(alignment: .center) {
-                            Text(climb.formattedGrade)
-                                .font(.title2)
-                                .padding()
-                                .foregroundColor(.black)
-                                .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour!), lineWidth: 2))
-                            
-                            Text(climb.formattedAttempts(short: true))
-                                .padding(-1)
-                                .font(.headline)
-                                .foregroundColor(.black)
-
-                        }
-                    }
+                ForEach(fetchRequest, id: \.self) { climb in
+                    self.content(climb)
                 }
             }
         }
     }
-}
-
-struct FilteredClimbsView_Previews: PreviewProvider {
-    static var previews: some View {
-        FilteredClimbsView(filter: .none)
+    
+    init(format: String, filterKey: String, filterValue: Any, @ViewBuilder content: @escaping (T) -> Content) {
+        // @todo: Find way of dynamically switching NSDate & CVarArg depending on the filterValue type
+        // let filterValueType = type(of: filterValue)
+        // filterValueType == "Date" ? NSDate : CVarArg
+        
+        _fetchRequest = FetchRequest<T>(sortDescriptors: [], predicate: NSPredicate(format: format, filterKey, filterValue as! CVarArg))
+        self.content = content
     }
 }

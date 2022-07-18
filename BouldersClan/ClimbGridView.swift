@@ -10,9 +10,7 @@ import CoreData
 
 struct ClimbGridView: View {
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.date)
-    ]) var climbs: FetchedResults<Climb>
+    let climbs: FetchedResults<Climb>
     
     let columns = [
         GridItem(.flexible()),
@@ -50,7 +48,6 @@ struct ClimbGridView: View {
                                         .foregroundColor(.black)
                                 }
                             }
-                            
                         }
                     }
                 }

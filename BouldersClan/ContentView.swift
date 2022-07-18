@@ -34,10 +34,21 @@ func routeColour(_ gradeColour: String) -> Color {
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
-    // Filter by isSent or Not -:>{ predicate: NSPredicate(format: "isSent == %i", 0) }
-    @FetchRequest(sortDescriptors: []) var climbs: FetchedResults<Climb>
+    @FetchRequest(sortDescriptors: [
+        NSSortDescriptor(keyPath: \Climb.date, ascending: false)
+    ]) var climbs: FetchedResults<Climb>
     
+    private let filterFormats = [
+        "bool": "%K == %i",
+        "string": "%K == %@",
+        "date": "%K > %@",
+    ]
+    
+    @State private var filterValue = false
+        
     @State private var isShowingGridView = true
+    let twelveHoursAgo = Date().addingTimeInterval(-86400)
+
     
     var body: some View {
         NavigationView {
@@ -48,7 +59,24 @@ struct ContentView: View {
                             Text("Key projects")
                                 .font(.title)
                             
-                            FilteredClimbsView(filter: .isKeyProject)
+                            FilteredClimbsView(format: filterFormats["bool"]!, filterKey: "isKeyProject", filterValue: true) { (climb: Climb) in
+                                // @todo: Convert this to a view of its own or struct
+                                NavigationLink(destination: ClimbView(climb: climb)) {
+                                    VStack(alignment: .center) {
+                                        Text(climb.formattedGrade)
+                                            .font(.title2)
+                                            .padding()
+                                            .foregroundColor(.black)
+                                            .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour!), lineWidth: 2))
+            
+                                        Text(climb.formattedAttempts(short: true))
+                                            .padding(-1)
+                                            .font(.headline)
+                                            .foregroundColor(.black)
+            
+                                    }
+                                }
+                            }
                         }
                         .padding(.horizontal)
                     }
@@ -58,11 +86,11 @@ struct ContentView: View {
                             Text("Recent climbs")
                                 .font(.title)
                             
-                            ClimbGridView(climbs: _climbs)
+                            ClimbGridView(climbs: climbs)
                         }
                         .padding(.horizontal)
                     } else {
-                        ClimbRowView(climbs: _climbs)
+                        ClimbRowView(climbs: climbs)
                     }
                 }
             }
@@ -70,6 +98,10 @@ struct ContentView: View {
         }
         
         Section {
+            // Filter Proof of concept to be updated with filter tab later...
+            Button("Update filter") {
+                filterValue.toggle()
+            }
             AddClimbView(isShowingGridView: $isShowingGridView)
         }
     }

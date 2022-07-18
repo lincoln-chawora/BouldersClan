@@ -23,17 +23,12 @@ extension Climb {
     @NSManaged public var isKeyProject: Bool
     @NSManaged public var isSent: Bool
     @NSManaged public var routeColour: String?
-    @NSManaged public var routeColours: [String]?
     @NSManaged public var selectedColourIndex: Int16
     @NSManaged public var routeImage: Data?
     @NSManaged public var notes: String?
 
     public var formattedGrade: String {
         "V\(grade)"
-    }
-    
-    public var wrappedRouteColours: [String] {
-        routeColours ?? ["White", "Green", "Blue", "Black", "Pink", "Red", "Purple", "Yellow", "Orange"]
     }
     
     public var wrappedDate: Date {
@@ -49,7 +44,7 @@ extension Climb {
     }
     
     func formattedAttempts(short: Bool) -> String {
-        short ? "\(attempts)" : "\(attempts) attempts"
+        short ? "\(attempts)" : attempts == 1 ? "\(attempts) attempt" : "\(attempts) attempts"
     }
 
 }
