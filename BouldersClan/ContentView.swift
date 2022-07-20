@@ -41,7 +41,7 @@ struct ContentView: View {
     private let filterFormats = [
         "bool": "%K == %i",
         "string": "%K == %@",
-        "date": "%K > %@",
+        "allPast": "date < %@",
         "todayDate": "date >= %@ && date <= %@"
     ]
     
@@ -51,8 +51,8 @@ struct ContentView: View {
     @State private var filterValue = false
         
     @State private var isShowingGridView = true
+    @State private var addClimbIsShowing = true
     let twelveHoursAgo = Date().addingTimeInterval(-86400)
-
     
     var body: some View {
         NavigationView {
@@ -63,21 +63,25 @@ struct ContentView: View {
                             Text("Key projects")
                                 .font(.title)
                             
-                            FilteredClimbsView(format: filterFormats["bool"]!, filterKey: "isKeyProject", filterValue: true) { (climb: Climb) in
-                                // @todo: Convert this to a view of its own or struct
-                                NavigationLink(destination: ClimbView(climb: climb)) {
-                                    VStack(alignment: .center) {
-                                        Text(climb.formattedGrade)
-                                            .font(.title2)
-                                            .padding()
-                                            .foregroundColor(.black)
-                                            .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour!), lineWidth: 2))
-            
-                                        Text(climb.formattedAttempts(short: true))
-                                            .padding(-1)
-                                            .font(.headline)
-                                            .foregroundColor(.black)
-            
+                            ScrollView(.horizontal) {
+                                HStack(spacing: 20) {
+                                    FilteredClimbsView(format: filterFormats["bool"]!, keyOrValue: "isKeyProject", filterValue: true) { (climb: Climb) in
+                                        // @todo: Convert this to a view of its own or struct
+                                        NavigationLink(destination: ClimbView(climb: climb)) {
+                                            VStack(alignment: .center) {
+                                                Text(climb.formattedGrade)
+                                                    .font(.title2)
+                                                    .padding()
+                                                    .foregroundColor(.black)
+                                                    .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour!), lineWidth: 2))
+                    
+                                                Text(climb.formattedAttempts(short: true))
+                                                    .padding(-1)
+                                                    .font(.headline)
+                                                    .foregroundColor(.black)
+                    
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -94,7 +98,18 @@ struct ContentView: View {
                         }
                         .padding(.horizontal)
                     } else {
-                        ClimbRowView(climbs: climbs)
+                        List {
+                            FilteredClimbsView(format: filterFormats["allPast"]!, keyOrValue: todaysDate, filterValue: todaysDate, isDateView: true) { (climb: Climb) in
+                                NavigationLink(destination: ClimbView(climb: climb)) {
+                                    ClimbRowView(climb: climb)
+                                }
+                            }
+                        }
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                EditButton()
+                            }
+                        }
                     }
                 }
             }
@@ -109,10 +124,31 @@ struct ContentView: View {
 
         Section {
             // Filter Proof of concept to be updated with filter tab later...
-            Button("Update filter") {
-                filterValue.toggle()
+            Button {
+                withAnimation {
+                    addClimbIsShowing.toggle()
+                }
+            } label: {
+                Label("Show or hide add climb panel", systemImage: addClimbIsShowing ? "arrow.down" : "arrow.up")
+                    .labelStyle(.iconOnly)
+                    .font(.title2)
+                    .frame(maxWidth: .infinity, maxHeight: 30)
+                    .background(Color.gray.opacity(0.1))
+                    .foregroundColor(.black)
+                    .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
+                        .onEnded { value in
+                            switch(value.translation.width, value.translation.height) {
+                                case (-100...100, ...0):  withAnimation { addClimbIsShowing = true }
+                                case (-100...100, 0...):  withAnimation { addClimbIsShowing = false }
+                                default:  print("no clue")
+                            }
+                        }
+                    )
             }
-            AddClimbView(isShowingGridView: $isShowingGridView)
+
+            if addClimbIsShowing {
+                AddClimbView(isShowingGridView: $isShowingGridView)
+            }
         }
     }
 }

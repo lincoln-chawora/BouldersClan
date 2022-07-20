@@ -9,66 +9,38 @@ import SwiftUI
 
 struct ClimbRowView: View {
     @Environment(\.managedObjectContext) var moc
-    let climbs: FetchedResults<Climb>
+    @ObservedObject var climb: Climb
     
     var body: some View {
         // @todo:: Make this Lazy.
-        List {
-            ForEach(climbs) { climb in
-                NavigationLink(destination: ClimbView(climb: climb)) {
-                    HStack {
-                        VStack {
-                            Rectangle()
-                                .fill(routeColour(climb.routeColour!))
-                                .frame(width: 5, height: 50)
-                        }
-                        VStack {
-                            HStack {
-                                Text(climb.climbDate)
-                                Spacer()
-                                Text(climb.climbTime)
-                            }
-                        
-                            HStack {
-                                Text(climb.formattedGrade)
-                                Spacer()
-                                Text(climb.attempts == 1 && climb.isSent ? "Flashed" : climb.formattedAttempts(short: false))
-                                    .frame(width: 100, alignment: .leading)
-                                Spacer()
-                                Text(climb.isSent ? "Sent" : "No send")
-                                    .frame(width: 70, alignment: .trailing)
-                            }
-                        }
-                        VStack {
-                            Rectangle()
-                                .fill(climb.isSent ? .green : .red)
-                                .frame(width: 5, height: 50)
-                        }
-                    }
+        HStack {
+            VStack {
+                Rectangle()
+                    .fill(routeColour(climb.routeColour!))
+                    .frame(width: 5, height: 50)
+            }
+            VStack {
+                HStack {
+                    Text(climb.climbDate)
+                    Spacer()
+                    Text(climb.climbTime)
+                }
+            
+                HStack {
+                    Text(climb.formattedGrade)
+                    Spacer()
+                    Text(climb.attempts == 1 && climb.isSent ? "Flashed" : climb.formattedAttempts(short: false))
+                        .frame(width: 100, alignment: .leading)
+                    Spacer()
+                    Text(climb.isSent ? "Sent" : "No send")
+                        .frame(width: 70, alignment: .trailing)
                 }
             }
-            .onDelete(perform: removeItems)
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                EditButton()
+            VStack {
+                Rectangle()
+                    .fill(climb.isSent ? .green : .red)
+                    .frame(width: 5, height: 50)
             }
-        }
-    }
-    
-    // Removes items from list display view.
-    func removeItems(at offsets: IndexSet) {
-        for index in offsets {
-            let climb = climbs[index]
-            moc.delete(climb)
-        }
-
-        do {
-            if moc.hasChanges {
-              try moc.save()
-            }
-        } catch {
-            print("Failed to remove climb from row.")
         }
     }
 }

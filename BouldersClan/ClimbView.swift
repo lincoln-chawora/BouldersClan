@@ -64,7 +64,7 @@ struct ClimbView: View {
                 }
                 Spacer()
                 VStack(alignment: .leading) {
-                    Text("Completion")
+                    Text("Status")
                     Text(climb.isSent ? "Sent" : "No send")
                         .font(.title)
                         .foregroundColor(climb.isSent ? .green : .red)

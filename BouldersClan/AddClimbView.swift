@@ -86,6 +86,8 @@ struct AddClimbView: View {
                     .buttonBorderShape(.capsule)
                 }
                 Spacer()
+                // Maybe use toggle if text can be moved?
+                // Toggle(isSent ? "Sent" : "No send", isOn: $isSent).toggleStyle(.switch)
                 Button (isSent ? "Sent" : "No send") {
                     isSent.toggle()
                 }
@@ -125,5 +127,6 @@ struct AddClimbView: View {
 
         }
         .padding(.horizontal)
+        .background(Color.gray.opacity(0.1))
     }
 }

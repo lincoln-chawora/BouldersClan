@@ -9,29 +9,48 @@ import CoreData
 import SwiftUI
 
 struct FilteredClimbsView<T: NSManagedObject, Content: View>: View {
+    @Environment(\.managedObjectContext) var moc
     @FetchRequest var fetchRequest: FetchedResults<T>
     
     let content: (T) -> Content
     
     var body: some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 20) {
-                ForEach(fetchRequest, id: \.self) { climb in
-                    self.content(climb)
-                }
+        ForEach(fetchRequest, id: \.self) { climb in
+            self.content(climb)
+        }
+        .onDelete(perform: removeItems)
+    }
+    
+    // Removes items from list display view.
+    func removeItems(at offsets: IndexSet) {
+        for index in offsets {
+            let climb = fetchRequest[index]
+            moc.delete(climb)
+        }
+
+        do {
+            if moc.hasChanges {
+              try moc.save()
             }
+        } catch {
+            print("Failed to remove climb from row.")
         }
     }
     
-    init(format: String, filterKey: Any, filterValue: Any, @ViewBuilder content: @escaping (T) -> Content) {
-        // @todo: Find way of dynamically switching NSDate & CVarArg depending on the filterValue type
-        // let filterValueType = type(of: filterValue)
-        // filterValueType == "Date" ? NSDate : CVarArg
-        
-        _fetchRequest = FetchRequest<T>(sortDescriptors: [], predicate: NSPredicate(
-            format: format,
-            filterKey as! CVarArg,
-            filterValue as! CVarArg))
+    init(format: String, keyOrValue: Any, filterValue: Any, isDateView: Bool = false, @ViewBuilder content: @escaping (T) -> Content) {
+        if isDateView {
+            _fetchRequest = FetchRequest<T>(sortDescriptors: [
+                NSSortDescriptor(keyPath: \Climb.date, ascending: false)
+            ], predicate: NSPredicate(
+                format: format,
+                keyOrValue as! NSDate,
+                filterValue as! NSDate))
+        } else {
+            _fetchRequest = FetchRequest<T>(sortDescriptors: [], predicate: NSPredicate(
+                format: format,
+                keyOrValue as! CVarArg,
+                filterValue as! CVarArg))
+        }
         self.content = content
     }
 }

@@ -180,6 +180,7 @@ public struct CalendarViewComponent<Day: View, Header: View, Title: View, Traili
     private let trailing: (Date) -> Trailing
     private let header: (Date) -> Header
     private let title: (Date) -> Title
+    private let fullFormatter: DateFormatter
     
     // Constants
     private let daysInWeek = 7
@@ -200,6 +201,7 @@ public struct CalendarViewComponent<Day: View, Header: View, Title: View, Traili
         self.trailing = trailing
         self.header = header
         self.title = title
+        self.fullFormatter = DateFormatter(dateFormat: "dd MMMM yyyy", calendar: calendar)
         
         _climbs = FetchRequest<Climb>(sortDescriptors: [NSSortDescriptor(key: "date", ascending: false)],
                                      predicate: NSPredicate(
@@ -237,7 +239,7 @@ public struct CalendarViewComponent<Day: View, Header: View, Title: View, Traili
             .frame(height: days.count == 42 ? 300 : 270)
             
             List {
-                Text("See climbs for date: \(date)")
+                Text("See climbs for: \(fullFormatter.string(from: date))")
                     .font(.title2)
                 ForEach(climbs) { climb in
                     NavigationLink(destination: ClimbView(climb: climb)) {
