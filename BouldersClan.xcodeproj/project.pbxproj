@@ -16,6 +16,7 @@
 		D36E6BE9287BF51400A7AE26 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D36E6BE8287BF51400A7AE26 /* Preview Assets.xcassets */; };
 		D36E6BF4287BF5D900A7AE26 /* ClimbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36E6BF3287BF5D900A7AE26 /* ClimbView.swift */; };
 		D36E6BF6287BF6CA00A7AE26 /* AddClimbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36E6BF5287BF6CA00A7AE26 /* AddClimbView.swift */; };
+		D39FA23C2885B98500E1AB1D /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39FA23B2885B98400E1AB1D /* CalendarView.swift */; };
 		D3A541202883638500DE1D70 /* BouldersClan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D3A5411E2883638500DE1D70 /* BouldersClan.xcdatamodeld */; };
 		D3A541232883674E00DE1D70 /* Climb+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A541212883674E00DE1D70 /* Climb+CoreDataClass.swift */; };
 		D3A541242883674E00DE1D70 /* Climb+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A541222883674E00DE1D70 /* Climb+CoreDataProperties.swift */; };
@@ -34,6 +35,7 @@
 		D36E6BE8287BF51400A7AE26 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D36E6BF3287BF5D900A7AE26 /* ClimbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbView.swift; sourceTree = "<group>"; };
 		D36E6BF5287BF6CA00A7AE26 /* AddClimbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClimbView.swift; sourceTree = "<group>"; };
+		D39FA23B2885B98400E1AB1D /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		D3A5411F2883638500DE1D70 /* BouldersClan.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BouldersClan.xcdatamodel; sourceTree = "<group>"; };
 		D3A541212883674E00DE1D70 /* Climb+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Climb+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D3A541222883674E00DE1D70 /* Climb+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Climb+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				D3A541222883674E00DE1D70 /* Climb+CoreDataProperties.swift */,
 				D36E6BE1287BF50400A7AE26 /* BouldersClanApp.swift */,
 				D36E6BE3287BF50400A7AE26 /* ContentView.swift */,
+				D39FA23B2885B98400E1AB1D /* CalendarView.swift */,
 				D36E6BF5287BF6CA00A7AE26 /* AddClimbView.swift */,
 				D303F62E287C333300E64957 /* ClimbGridView.swift */,
 				D303F62C287C2E9400E64957 /* ClimbRowView.swift */,
@@ -173,6 +176,7 @@
 				D36E6BE4287BF50400A7AE26 /* ContentView.swift in Sources */,
 				D36E6BF6287BF6CA00A7AE26 /* AddClimbView.swift in Sources */,
 				D3A54126288367B600DE1D70 /* DataController.swift in Sources */,
+				D39FA23C2885B98500E1AB1D /* CalendarView.swift in Sources */,
 				D3A541232883674E00DE1D70 /* Climb+CoreDataClass.swift in Sources */,
 				D3A541242883674E00DE1D70 /* Climb+CoreDataProperties.swift in Sources */,
 				D303F62D287C2E9400E64957 /* ClimbRowView.swift in Sources */,

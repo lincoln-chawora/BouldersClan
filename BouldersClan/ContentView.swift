@@ -42,7 +42,11 @@ struct ContentView: View {
         "bool": "%K == %i",
         "string": "%K == %@",
         "date": "%K > %@",
+        "todayDate": "date >= %@ && date <= %@"
     ]
+    
+    @State private var todaysDate = Calendar.current.startOfDay(for: Date.now)
+    @State private var tomorrowsDate = Calendar.current.startOfDay(for: Date.now + 86400)
     
     @State private var filterValue = false
         
@@ -95,8 +99,14 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                NavigationLink(destination: CalendarView(calendar: Calendar(identifier: .gregorian))) {
+                    Label("View Calendar view", systemImage: "calendar")
+                }
+            }
         }
-        
+
+
         Section {
             // Filter Proof of concept to be updated with filter tab later...
             Button("Update filter") {
