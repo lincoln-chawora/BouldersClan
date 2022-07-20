@@ -144,6 +144,20 @@ struct ContentView: View {
                             }
                         }
                     )
+                
+                Spacer()
+                
+                // Display mode switcher.
+                Button {
+                    withAnimation {
+                        isShowingGridView.toggle()
+                    }
+                } label: {
+                    Label("Grid", systemImage: isShowingGridView ? "rectangle.grid.1x2" : "square.grid.3x3")
+                        .labelStyle(.iconOnly)
+                        .font(.largeTitle)
+                        .foregroundColor(.black)
+                }
             }
 
             if addClimbIsShowing {

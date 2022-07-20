@@ -41,18 +41,7 @@ struct AddClimbView: View {
             HStack() {
                 Text("Add climb")
                     .font(.title)
-                
                 Spacer()
-                
-                // Display mode switcher.
-                Button {
-                    isShowingGridView.toggle()
-                } label: {
-                    Label("Grid", systemImage: isShowingGridView ? "rectangle.grid.1x2" : "square.grid.3x3")
-                        .labelStyle(.iconOnly)
-                        .font(.largeTitle)
-                        .foregroundColor(.black)
-                }
             }
             .padding(.vertical)
             HStack(alignment: .top) {
