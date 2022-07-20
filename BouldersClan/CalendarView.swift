@@ -238,38 +238,40 @@ public struct CalendarViewComponent<Day: View, Header: View, Title: View, Traili
             }
             .frame(height: days.count == 42 ? 300 : 270)
             
-            List {
-                Text("See climbs for: \(fullFormatter.string(from: date))")
-                    .font(.title2)
-                ForEach(climbs) { climb in
-                    NavigationLink(destination: ClimbView(climb: climb)) {
-                        HStack {
-                            VStack {
-                                Rectangle()
-                                    .fill(routeColour(climb.routeColour!))
-                                    .frame(width: 5, height: 50)
-                            }
-                            VStack {
-                                HStack {
-                                    Text(climb.climbDate)
-                                    Spacer()
-                                    Text(climb.climbTime)
+            if climbs.count > 0 {
+                List {
+                    Text("See climbs for: \(fullFormatter.string(from: date))")
+                        .font(.title2)
+                    ForEach(climbs) { climb in
+                        NavigationLink(destination: ClimbView(climb: climb)) {
+                            HStack {
+                                VStack {
+                                    Rectangle()
+                                        .fill(routeColour(climb.routeColour!))
+                                        .frame(width: 5, height: 50)
                                 }
+                                VStack {
+                                    HStack {
+                                        Text(climb.climbDate)
+                                        Spacer()
+                                        Text(climb.climbTime)
+                                    }
 
-                                HStack {
-                                    Text(climb.formattedGrade)
-                                    Spacer()
-                                    Text(climb.attempts == 1 && climb.isSent ? "Flashed" : climb.formattedAttempts(short: false))
-                                        .frame(width: 100, alignment: .leading)
-                                    Spacer()
-                                    Text(climb.isSent ? "Sent" : "No send")
-                                        .frame(width: 70, alignment: .trailing)
+                                    HStack {
+                                        Text(climb.formattedGrade)
+                                        Spacer()
+                                        Text(climb.attempts == 1 && climb.isSent ? "Flashed" : climb.formattedAttempts(short: false))
+                                            .frame(width: 100, alignment: .leading)
+                                        Spacer()
+                                        Text(climb.isSent ? "Sent" : "No send")
+                                            .frame(width: 70, alignment: .trailing)
+                                    }
                                 }
-                            }
-                            VStack {
-                                Rectangle()
-                                    .fill(climb.isSent ? .green : .red)
-                                    .frame(width: 5, height: 50)
+                                VStack {
+                                    Rectangle()
+                                        .fill(climb.isSent ? .green : .red)
+                                        .frame(width: 5, height: 50)
+                                }
                             }
                         }
                     }
