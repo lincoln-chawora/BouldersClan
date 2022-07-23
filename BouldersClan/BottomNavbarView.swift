@@ -12,30 +12,37 @@ struct BottomNavbarView: View {
     @Binding var isShowingHomeView: Bool
     @Binding var isShowingCalendar: Bool
     @Binding var isShowingFilterView: Bool
+    
     var body: some View {
         HStack {
             Button {
-                isShowingHomeView = true
-                isShowingCalendar = false
-                isShowingFilterView = false
+                showHome()
             } label: {
-                Label("Home screen", systemImage: "house")
+                VStack {
+                    Image(systemName: "house")
+                    Text("Home")
+                        .font(.caption)
+                }
             }
             Spacer()
             Button {
-                isShowingFilterView = true
-                isShowingCalendar = false
-                isShowingHomeView = false
+                showFilteredClimbs()
             } label: {
-                Label("Filtered climbs screen", systemImage: "magnifyingglass")
+                VStack {
+                    Image(systemName: "magnifyingglass")
+                    Text("Filtered Climbs")
+                        .font(.caption)
+                }
             }
             Spacer()
             Button {
-                isShowingCalendar = true
-                isShowingFilterView = false
-                isShowingHomeView = false
+                showCalendarView()
             } label: {
-                Label("Calendar view", systemImage: "calendar")
+                VStack {
+                    Image(systemName: "calendar")
+                    Text("Calendar")
+                        .font(.caption)
+                }
             }
             Spacer()
             Button {
@@ -43,7 +50,11 @@ struct BottomNavbarView: View {
                     addClimbIsShowing.toggle()
                 }
             } label: {
-                Label("Show or hide add climb panel", systemImage: addClimbIsShowing ? "minus" : "plus")
+                VStack {
+                    Image(systemName: addClimbIsShowing ? "arrow.down" : "plus")
+                    Text(addClimbIsShowing ? "Hide panel" : "Add climb")
+                        .font(.caption)
+                }
             }
         }
         .labelStyle(.iconOnly)
@@ -60,5 +71,23 @@ struct BottomNavbarView: View {
                 }
             }
         )
+    }
+    
+    func showHome() {
+        isShowingHomeView = true
+        isShowingCalendar = false
+        isShowingFilterView = false
+    }
+    
+    func showFilteredClimbs() {
+        isShowingFilterView = true
+        isShowingCalendar = false
+        isShowingHomeView = false
+    }
+    
+    func showCalendarView() {
+        isShowingCalendar = true
+        isShowingFilterView = false
+        isShowingHomeView = false
     }
 }

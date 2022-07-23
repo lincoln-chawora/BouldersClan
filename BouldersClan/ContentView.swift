@@ -109,7 +109,7 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 NavigationLink(destination: SettingsView()) {
-                    Label("View settings", systemImage: "gear")
+                    Label("View settings", systemImage: "person.circle")
                 }
             }
         }
