@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct ClimbRowView: View {
-    @Environment(\.managedObjectContext) var moc
     @ObservedObject var climb: Climb
     
     var body: some View {
-        // @todo:: Make this Lazy.
         HStack {
             VStack {
                 Rectangle()
-                    .fill(routeColour(climb.routeColour!))
+                    .fill(routeColour(climb.routeColour ?? "Unknown"))
                     .frame(width: 5, height: 50)
             }
             VStack {

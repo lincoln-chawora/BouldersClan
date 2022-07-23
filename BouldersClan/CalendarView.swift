@@ -173,6 +173,7 @@ struct CalendarView: View {
 // MARK: - Component
 
 public struct CalendarViewComponent<Day: View, Header: View, Title: View, Trailing: View>: View {
+    @Environment(\.managedObjectContext) var moc
     // Injected dependencies
     private var calendar: Calendar
     @Binding private var date: Date
@@ -186,6 +187,7 @@ public struct CalendarViewComponent<Day: View, Header: View, Title: View, Traili
     private let daysInWeek = 7
     
     @FetchRequest var climbs: FetchedResults<Climb>
+    @State private var numberOfResults = 0
     
     public init(
         calendar: Calendar,
@@ -240,43 +242,44 @@ public struct CalendarViewComponent<Day: View, Header: View, Title: View, Traili
             
             if climbs.count > 0 {
                 List {
-                    Text("See climbs for: \(fullFormatter.string(from: date))")
-                        .font(.title2)
-                    ForEach(climbs) { climb in
-                        NavigationLink(destination: ClimbView(climb: climb)) {
-                            HStack {
-                                VStack {
-                                    Rectangle()
-                                        .fill(routeColour(climb.routeColour!))
-                                        .frame(width: 5, height: 50)
-                                }
-                                VStack {
-                                    HStack {
-                                        Text(climb.climbDate)
-                                        Spacer()
-                                        Text(climb.climbTime)
-                                    }
-
-                                    HStack {
-                                        Text(climb.formattedGrade)
-                                        Spacer()
-                                        Text(climb.attempts == 1 && climb.isSent ? "Flashed" : climb.formattedAttempts(short: false))
-                                            .frame(width: 100, alignment: .leading)
-                                        Spacer()
-                                        Text(climb.isSent ? "Sent" : "No send")
-                                            .frame(width: 70, alignment: .trailing)
-                                    }
-                                }
-                                VStack {
-                                    Rectangle()
-                                        .fill(climb.isSent ? .green : .red)
-                                        .frame(width: 5, height: 50)
+                    NavigationLink {
+                        Text(fullFormatter.string(from: date))
+                            .font(.title)
+                        List {
+                            ForEach(climbs) { climb in
+                                NavigationLink(destination: ClimbView(climb: climb)) {
+                                    ClimbRowView(climb: climb)
                                 }
                             }
                         }
+                    } label: {
+                        Text("See climbs for: \(fullFormatter.string(from: date))")
+                            .font(.title2)
                     }
+
+                    ForEach(climbs) { climb in
+                        NavigationLink(destination: ClimbView(climb: climb)) {
+                            ClimbRowView(climb: climb)
+                        }
+                    }
+                    .onDelete(perform: removeItems)
                 }
             }
+        }
+    }
+    
+    func removeItems(at offsets: IndexSet) {
+        for index in offsets {
+            let climb = climbs[index]
+            moc.delete(climb)
+        }
+
+        do {
+            if moc.hasChanges {
+              try moc.save()
+            }
+        } catch {
+            print("Failed to remove climb from row.")
         }
     }
 }
@@ -353,14 +356,3 @@ private extension DateFormatter {
         self.calendar = calendar
     }
 }
-
-// MARK: - Previews
-
-//#if DEBUG
-//struct CalendarView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CalendarView(calendar: Calendar(identifier: .gregorian))
-//            .environment(\.managedObjectContext, dataController.container.viewContext)
-//    }
-//}
-//#endif

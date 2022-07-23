@@ -12,6 +12,8 @@ struct FilteredClimbsView<T: NSManagedObject, Content: View>: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest var fetchRequest: FetchedResults<T>
     
+    @Binding var numberOfResults: Int
+    
     let content: (T) -> Content
     
     var body: some View {
@@ -19,6 +21,9 @@ struct FilteredClimbsView<T: NSManagedObject, Content: View>: View {
             self.content(climb)
         }
         .onDelete(perform: removeItems)
+        .onReceive(fetchRequest.publisher.count()) { _ in
+            numberOfResults = fetchRequest.count
+        }
     }
     
     // Removes items from list display view.
@@ -37,7 +42,7 @@ struct FilteredClimbsView<T: NSManagedObject, Content: View>: View {
         }
     }
     
-    init(format: String, keyOrValue: Any, filterValue: Any, isDateView: Bool = false, @ViewBuilder content: @escaping (T) -> Content) {
+    init(format: String, keyOrValue: Any, filterValue: Any, isDateView: Bool = false, numberOfResults: Binding<Int>, @ViewBuilder content: @escaping (T) -> Content) {
         if isDateView {
             _fetchRequest = FetchRequest<T>(sortDescriptors: [
                 NSSortDescriptor(keyPath: \Climb.date, ascending: false)
@@ -52,5 +57,6 @@ struct FilteredClimbsView<T: NSManagedObject, Content: View>: View {
                 filterValue as! CVarArg))
         }
         self.content = content
+        self._numberOfResults = numberOfResults
     }
 }

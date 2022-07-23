@@ -36,11 +36,11 @@ extension Climb {
     }
     
     var climbDate: String {
-        (date?.formatted(date: .numeric, time: .omitted))!
+        (date?.formatted(date: .numeric, time: .omitted)) ?? ("\(Date.now.formatted(date: .numeric, time: .omitted))")
     }
     
     var climbTime: String {
-        (date?.formatted(date: .omitted, time: .shortened))!
+        (date?.formatted(date: .omitted, time: .shortened)) ?? ("\(Date.now.formatted(date: .omitted, time: .shortened))")
     }
     
     func formattedAttempts(short: Bool) -> String {

@@ -33,7 +33,6 @@ struct AddClimbView: View {
     func resetClimb() {
         attempts = 1
         isSent = true
-        isShowingGridView = isShowingGridView
     }
     
     var body: some View {
@@ -115,7 +114,7 @@ struct AddClimbView: View {
             .frame(alignment: .bottom)
 
         }
-        .padding(.horizontal)
+        .padding([.horizontal, .bottom], 10)
         .background(Color.gray.opacity(0.1))
     }
 }

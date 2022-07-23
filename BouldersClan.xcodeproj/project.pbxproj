@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		D303F62D287C2E9400E64957 /* ClimbRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D303F62C287C2E9400E64957 /* ClimbRowView.swift */; };
 		D303F62F287C333300E64957 /* ClimbGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D303F62E287C333300E64957 /* ClimbGridView.swift */; };
+		D3450E0B288C40830033D459 /* ClimbGridTeaserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3450E0A288C40830033D459 /* ClimbGridTeaserView.swift */; };
+		D3450E0D288C68090033D459 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3450E0C288C68090033D459 /* SettingsView.swift */; };
+		D3450E0F288C69230033D459 /* BottomNavbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3450E0E288C69230033D459 /* BottomNavbarView.swift */; };
 		D36742A4287CD6C200C1F7CF /* PolygonShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36742A3287CD6C200C1F7CF /* PolygonShape.swift */; };
 		D36E6BE2287BF50400A7AE26 /* BouldersClanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36E6BE1287BF50400A7AE26 /* BouldersClanApp.swift */; };
 		D36E6BE4287BF50400A7AE26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36E6BE3287BF50400A7AE26 /* ContentView.swift */; };
@@ -27,6 +30,9 @@
 /* Begin PBXFileReference section */
 		D303F62C287C2E9400E64957 /* ClimbRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbRowView.swift; sourceTree = "<group>"; };
 		D303F62E287C333300E64957 /* ClimbGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbGridView.swift; sourceTree = "<group>"; };
+		D3450E0A288C40830033D459 /* ClimbGridTeaserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbGridTeaserView.swift; sourceTree = "<group>"; };
+		D3450E0C288C68090033D459 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D3450E0E288C69230033D459 /* BottomNavbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavbarView.swift; sourceTree = "<group>"; };
 		D36742A3287CD6C200C1F7CF /* PolygonShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonShape.swift; sourceTree = "<group>"; };
 		D36E6BDE287BF50400A7AE26 /* BouldersClan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BouldersClan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D36E6BE1287BF50400A7AE26 /* BouldersClanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouldersClanApp.swift; sourceTree = "<group>"; };
@@ -79,9 +85,12 @@
 				D3A541222883674E00DE1D70 /* Climb+CoreDataProperties.swift */,
 				D36E6BE1287BF50400A7AE26 /* BouldersClanApp.swift */,
 				D36E6BE3287BF50400A7AE26 /* ContentView.swift */,
+				D3450E0E288C69230033D459 /* BottomNavbarView.swift */,
+				D3450E0C288C68090033D459 /* SettingsView.swift */,
 				D39FA23B2885B98400E1AB1D /* CalendarView.swift */,
 				D36E6BF5287BF6CA00A7AE26 /* AddClimbView.swift */,
 				D303F62E287C333300E64957 /* ClimbGridView.swift */,
+				D3450E0A288C40830033D459 /* ClimbGridTeaserView.swift */,
 				D303F62C287C2E9400E64957 /* ClimbRowView.swift */,
 				D36E6BF3287BF5D900A7AE26 /* ClimbView.swift */,
 				D3D47A19287F928400B99EE1 /* FilteredClimbsView.swift */,
@@ -170,6 +179,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3450E0D288C68090033D459 /* SettingsView.swift in Sources */,
+				D3450E0B288C40830033D459 /* ClimbGridTeaserView.swift in Sources */,
 				D36E6BF4287BF5D900A7AE26 /* ClimbView.swift in Sources */,
 				D36742A4287CD6C200C1F7CF /* PolygonShape.swift in Sources */,
 				D3A541202883638500DE1D70 /* BouldersClan.xcdatamodeld in Sources */,
@@ -179,6 +190,7 @@
 				D39FA23C2885B98500E1AB1D /* CalendarView.swift in Sources */,
 				D3A541232883674E00DE1D70 /* Climb+CoreDataClass.swift in Sources */,
 				D3A541242883674E00DE1D70 /* Climb+CoreDataProperties.swift in Sources */,
+				D3450E0F288C69230033D459 /* BottomNavbarView.swift in Sources */,
 				D303F62D287C2E9400E64957 /* ClimbRowView.swift in Sources */,
 				D303F62F287C333300E64957 /* ClimbGridView.swift in Sources */,
 				D36E6BE2287BF50400A7AE26 /* BouldersClanApp.swift in Sources */,
