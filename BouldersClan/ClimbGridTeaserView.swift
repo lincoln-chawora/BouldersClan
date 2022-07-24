@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ClimbGridTeaserView: View {
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var climb: Climb
     var simple: Bool = false
     
@@ -17,8 +18,8 @@ struct ClimbGridTeaserView: View {
                 Text(climb.formattedGrade)
                     .font(.title2)
                     .padding(12)
-                    .foregroundColor(.black)
-                    .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour!), lineWidth: 2))
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                    .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour!, colorScheme), lineWidth: 2))
                 
                 if simple {
                     Text(climb.formattedAttempts(short: true))
@@ -29,7 +30,7 @@ struct ClimbGridTeaserView: View {
                     if climb.attempts == 1 && climb.isSent {
                         Label(climb.formattedAttempts(short: true), systemImage: "bolt.fill")
                             .labelStyle(.iconOnly)
-                            .foregroundColor(.black)
+                            .foregroundColor(.yellow)
                     } else {
                         if !climb.isSent {
                             Text("X")
@@ -39,7 +40,7 @@ struct ClimbGridTeaserView: View {
                             Text(climb.formattedAttempts(short: true))
                                 .padding(-1)
                                 .font(.headline)
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
                         }
                     }
                 }

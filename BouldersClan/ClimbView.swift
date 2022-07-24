@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct ClimbView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.managedObjectContext) var moc
     @ObservedObject var climb: Climb
     @State private var climbNote = ""
+    @State private var image: Image?
+    @State private var showingImagePicker = false
+    @State private var selectedImage: UIImage?
+    @State private var addFromLibrary = true
     
     var body: some View {
         ScrollView {
@@ -19,8 +24,8 @@ struct ClimbView: View {
                     Text(climb.formattedGrade)
                         .padding(20)
                         .font(.largeTitle)
-                        .foregroundColor(routeColour(climb.routeColour!))
-                        .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour!), lineWidth: 3))
+                        .foregroundColor(routeColour(climb.routeColour!, colorScheme))
+                        .background(PolygonShape(sides: 6).stroke(routeColour(climb.routeColour!, colorScheme), lineWidth: 3))
                 }
                     
                 Spacer()
@@ -36,7 +41,7 @@ struct ClimbView: View {
                     } label: {
                         Label("Project", systemImage: climb.isKeyProject ? "star.fill" : "star")
                             .font(.title2)
-                            .foregroundColor(.black)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                     }
                     
                     Text(climb.climbDate)
@@ -53,7 +58,7 @@ struct ClimbView: View {
                 VStack(alignment: .leading) {
                     Text("Attemps")
                     if climb.attempts == 1 && climb.isSent {
-                        Label("Flashed", systemImage: "bolt")
+                        Label("Flashed", systemImage: "bolt.fill")
                             .font(.title)
                             .foregroundColor(.yellow)
                     } else {
@@ -94,13 +99,57 @@ struct ClimbView: View {
                     .foregroundColor(.gray)
                     .padding(.vertical, 3)
                 
-                Text("Route")
-                Image("climbroute")
+                HStack {
+                    
+                    Button("Add picture from library") {
+                        addFromLibrary = true
+                        print("Library status from defa: \(addFromLibrary)")
+                        showingImagePicker = true
+                    }
+                    .buttonStyle(.bordered)
+                    
+                    // FIX BUT WITH ADD FROM LIBRARY NOT CHANGING AND ALSO ONLY ALLOW THIS OPTION IF DEVICE HAS CAMERA.
+                    Button("Take picture") {
+                        addFromLibrary = false
+                        print("Library status from take: \(addFromLibrary)")
+                        showingImagePicker = true
+                    }
+                    .buttonStyle(.bordered)
+                }
+
+                image?
                     .resizable()
-                    .scaledToFill()
-                    .frame(maxWidth: .infinity)
+                    .scaledToFit()
+    
+            }
+            .onChange(of: selectedImage) { _ in selectImage() }
+            .onAppear(perform: getImage)
+            .sheet(isPresented: $showingImagePicker) {
+                ImagePicker(sourceType: addFromLibrary ? .photoLibrary : .camera, selectedImage: $selectedImage)
             }
         }
         .padding()
+    }
+    
+    func getImage() {
+        if climb.routeImage != nil {
+            let uiImage = UIImage(data: climb.routeImage!)
+            image = Image(uiImage: uiImage!)
+        }
+    }
+    
+    func selectImage() {
+        guard let selectedImage = selectedImage else {
+            return
+        }
+                
+        image = Image(uiImage: selectedImage)
+        
+        let data = selectedImage.jpegData(compressionQuality: 1.0)
+        
+        if data != nil {
+            climb.routeImage = data
+            try? moc.save()
+        }
     }
 }

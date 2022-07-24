@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BottomNavbarView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Binding var addClimbIsShowing: Bool
     @Binding var isShowingHomeView: Bool
     @Binding var isShowingCalendar: Bool
@@ -59,7 +60,7 @@ struct BottomNavbarView: View {
         }
         .labelStyle(.iconOnly)
         .font(.largeTitle)
-        .foregroundColor(.black)
+        .foregroundColor(colorScheme == .dark ? .white : .black)
         .padding([.horizontal, .top], 10)
         .background(Color.gray.opacity(0.1))
         .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)

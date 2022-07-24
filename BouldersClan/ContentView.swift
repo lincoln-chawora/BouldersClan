@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-func routeColour(_ gradeColour: String) -> Color {
+func routeColour(_ gradeColour: String, _ colourScheme: ColorScheme = .dark) -> Color {
     switch gradeColour {
         case "Green":
             return .green
         case "White":
-        return .gray.opacity(0.2)
+        return colourScheme == .dark ? .white : .gray.opacity(0.2)
         case "Blue":
             return .blue
         case "Black":
-            return .black
+        return colourScheme == .dark ? .gray.opacity(0.5) : .black
         case "Pink":
             return .pink
         case "Red":
@@ -125,7 +125,12 @@ struct ContentView: View {
                             }
                         })
             }
-            BottomNavbarView(addClimbIsShowing: $addClimbIsShowing, isShowingHomeView: $isShowingHomeView, isShowingCalendar: $isShowingCalendar, isShowingFilterView: $isShowingFilterView)
+            BottomNavbarView(
+                addClimbIsShowing: $addClimbIsShowing,
+                isShowingHomeView: $isShowingHomeView,
+                isShowingCalendar: $isShowingCalendar,
+                isShowingFilterView: $isShowingFilterView
+            )
         }
     }
 }

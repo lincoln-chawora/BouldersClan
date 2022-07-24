@@ -39,7 +39,7 @@ struct CalendarView: View {
                             Text(dayFormatter.string(from: date))
                                 .padding(6)
                                 // Added to make selection sizes equal on all numbers.
-                                .frame(width: 33, height: 33)
+                                .frame(width: 35, height: 35)
                                 .foregroundColor(calendar.isDateInToday(date) || calendar.isDate(date, inSameDayAs: selectedDate) ? Color.white : date.timeIntervalSinceNow.sign == .plus ? .secondary : .primary)
                                 .background(
                                     calendar.isDateInToday(date) ? Color.red : calendar.isDate(date, inSameDayAs: selectedDate) ? .blue : .clear
