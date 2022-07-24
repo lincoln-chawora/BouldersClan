@@ -51,7 +51,9 @@ struct FilteredClimbsView<T: NSManagedObject, Content: View>: View {
                 keyOrValue as! NSDate,
                 filterValue as! NSDate))
         } else {
-            _fetchRequest = FetchRequest<T>(sortDescriptors: [], predicate: NSPredicate(
+            _fetchRequest = FetchRequest<T>(sortDescriptors: [
+                NSSortDescriptor(keyPath: \Climb.date, ascending: false)
+            ], predicate: NSPredicate(
                 format: format,
                 keyOrValue as! CVarArg,
                 filterValue as! CVarArg))

@@ -31,6 +31,10 @@ extension Climb {
         "V\(grade)"
     }
     
+    public var formattedNotes: String {
+        notes ?? ""
+    }
+    
     public var wrappedDate: Date {
         date ?? Date.now
     }

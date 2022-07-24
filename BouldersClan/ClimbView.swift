@@ -31,7 +31,6 @@ struct ClimbView: View {
                 Spacer()
                 
                 VStack(alignment: .leading) {
-                    // @todo: Fix toggling issue
                     Button {
                         climb.isKeyProject.toggle()
                         climb.isKeyProject = climb.isKeyProject
@@ -73,6 +72,10 @@ struct ClimbView: View {
                     Text(climb.isSent ? "Sent" : "No send")
                         .font(.title)
                         .foregroundColor(climb.isSent ? .green : .red)
+                        .onTapGesture {
+                            climb.isSent.toggle()
+                            climb.isSent = climb.isSent
+                        }
                 }
             }
             
@@ -84,6 +87,8 @@ struct ClimbView: View {
             VStack (alignment: .leading) {
                 TextField("Notes", text: $climbNote)
                     .foregroundColor(.secondary)
+                
+                Text(climb.formattedNotes)
                 
                 // @todo: Fix data persistance issue here
                 Button("Save note") {
@@ -100,13 +105,11 @@ struct ClimbView: View {
                     .padding(.vertical, 3)
                 
                 HStack {
-                    
                     Button("Add picture from library") {
                         addFromLibrary = true
                         print("Library status from defa: \(addFromLibrary)")
                         showingImagePicker = true
                     }
-                    .buttonStyle(.bordered)
                     
                     // FIX BUT WITH ADD FROM LIBRARY NOT CHANGING AND ALSO ONLY ALLOW THIS OPTION IF DEVICE HAS CAMERA.
                     Button("Take picture") {
@@ -114,8 +117,9 @@ struct ClimbView: View {
                         print("Library status from take: \(addFromLibrary)")
                         showingImagePicker = true
                     }
-                    .buttonStyle(.bordered)
                 }
+                .buttonStyle(.bordered)
+                .foregroundColor(colorScheme == .dark ? .white : .black)
 
                 image?
                     .resizable()

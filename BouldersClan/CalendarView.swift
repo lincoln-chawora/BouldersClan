@@ -251,6 +251,7 @@ public struct CalendarViewComponent<Day: View, Header: View, Title: View, Traili
                                     ClimbRowView(climb: climb)
                                 }
                             }
+                            .onDelete(perform: removeItems)
                         }
                     } label: {
                         Text("See climbs for: \(fullFormatter.string(from: date))")

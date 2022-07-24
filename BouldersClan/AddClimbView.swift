@@ -10,6 +10,7 @@ import SwiftUI
 
 struct AddClimbView: View {
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.colorScheme) var colorScheme
     @Binding var isShowingGridView: Bool
     
     @State private var isSent = true
@@ -49,13 +50,12 @@ struct AddClimbView: View {
                     Button("V\(grade)") {
                         gradeCalculation(true)
                     }
-                    .buttonStyle(.bordered)
-                    .buttonBorderShape(.capsule)
+                    .frame(width: 50, height: 35)
+                    .border(colorScheme == .dark ? .white : .black, width: 2)
+                    
                     Button("-") {
                         gradeCalculation(false)
                     }
-                    .buttonStyle(.bordered)
-                    .buttonBorderShape(.capsule)
                 }
                 Spacer()
                 // Attemps Stack.
@@ -63,30 +63,35 @@ struct AddClimbView: View {
                     Button("\(attempts)") {
                         attempts += 1
                     }
-                    .buttonStyle(.bordered)
-                    .buttonBorderShape(.capsule)
+                    .frame(width: 40, height: 35)
+                    .border(colorScheme == .dark ? .white : .black, width: 2)
+                    
+                    
                     Button("-") {
                         if attempts > 1 {
                             attempts -= 1
                         }
                     }
-                    .buttonStyle(.bordered)
-                    .buttonBorderShape(.capsule)
                 }
                 Spacer()
-                // Maybe use toggle if text can be moved?
-                // Toggle(isSent ? "Sent" : "No send", isOn: $isSent).toggleStyle(.switch)
-                Button (isSent ? "Sent" : "No send") {
-                    isSent.toggle()
+                VStack {
+                    Toggle("Status",isOn: $isSent).toggleStyle(.switch).labelsHidden()
+                    Text(isSent ? "Sent" : "No send")
+                        .frame(width: 85, height: 20)
+                        .onTapGesture {
+                            isSent.toggle()
+                        }
                 }
-                .buttonStyle(.bordered)
-                .buttonBorderShape(.capsule)
+                
                 Spacer()
                 Picker("Grade color", selection: $routeColour, content: {
                     ForEach(colours, id: \.self, content: { color in
                         Text(color)
                     })
                 })
+                .accentColor(BouldersClan.routeColour(routeColour, colorScheme))
+                .frame(width: 65, height: 35)
+                .border(BouldersClan.routeColour(routeColour, colorScheme), width: 2)
                 .pickerStyle(.menu)
                 Spacer()
                 Button("Save") {
@@ -107,14 +112,16 @@ struct AddClimbView: View {
                     }
                     resetClimb()
                 }
-                .buttonBorderShape(.capsule)
-                .buttonStyle(.borderedProminent)
-                .tint(.blue)
+                .foregroundColor(colorScheme == .dark ? .black : .white)
+                .frame(width: 55, height: 35)
+                .border(colorScheme == .dark ? .white : .black, width: 2)
+                .background(colorScheme == .dark ? .white : .black)
             }
+            .foregroundColor(colorScheme == .dark ? .white : .black)
             .frame(alignment: .bottom)
 
         }
         .padding([.horizontal, .bottom], 10)
-        .background(Color.gray.opacity(0.1))
+        .background(colorScheme == .dark ? Color.gray.opacity(0.1) : Color.black.opacity(0.1))
     }
 }

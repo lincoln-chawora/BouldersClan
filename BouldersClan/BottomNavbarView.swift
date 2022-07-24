@@ -14,54 +14,55 @@ struct BottomNavbarView: View {
     @Binding var isShowingCalendar: Bool
     @Binding var isShowingFilterView: Bool
     
+    struct navButton: View {
+        let title: String
+        let action: () -> Void
+        let icon: String
+        let isSelected: Bool
+        let colorScheme: ColorScheme
+
+        func btnColour() -> Color {
+            if isSelected && colorScheme == .dark {
+                return .white
+            }
+            
+            if !isSelected && colorScheme == .dark || !isSelected && colorScheme == .light {
+                return .gray
+            }
+            
+            if isSelected && colorScheme == .light {
+                return .black
+            }
+            
+            return .white
+        }
+        var body: some View {
+            Button {
+                action()
+            } label: {
+                VStack {
+                    Image(systemName: icon)
+                    Text(title)
+                        .font(.caption)
+                }
+            }
+            .foregroundColor(btnColour())
+            .labelStyle(.iconOnly)
+            .font(.largeTitle)
+            .padding([.horizontal, .top], 10)
+        }
+    }
+    
     var body: some View {
         HStack {
-            Button {
-                showHome()
-            } label: {
-                VStack {
-                    Image(systemName: "house")
-                    Text("Home")
-                        .font(.caption)
-                }
-            }
+            navButton(title: "Home", action: showHome, icon: "house", isSelected: isShowingHomeView, colorScheme: colorScheme)
             Spacer()
-            Button {
-                showFilteredClimbs()
-            } label: {
-                VStack {
-                    Image(systemName: "magnifyingglass")
-                    Text("Filtered Climbs")
-                        .font(.caption)
-                }
-            }
+            navButton(title: "Filtered Climbs", action: showFilteredClimbs, icon: "magnifyingglass", isSelected: isShowingFilterView, colorScheme: colorScheme)
             Spacer()
-            Button {
-                showCalendarView()
-            } label: {
-                VStack {
-                    Image(systemName: "calendar")
-                    Text("Calendar")
-                        .font(.caption)
-                }
-            }
+            navButton(title: "Calendar", action: showCalendarView, icon: "calendar", isSelected: isShowingCalendar, colorScheme: colorScheme)
             Spacer()
-            Button {
-                withAnimation {
-                    addClimbIsShowing.toggle()
-                }
-            } label: {
-                VStack {
-                    Image(systemName: addClimbIsShowing ? "arrow.down" : "plus")
-                    Text(addClimbIsShowing ? "Hide panel" : "Add climb")
-                        .font(.caption)
-                }
-            }
+            navButton(title: addClimbIsShowing ? "Hide panel" : "Add climb", action: toggleAddClimb, icon: addClimbIsShowing ? "arrow.down" : "plus", isSelected: addClimbIsShowing, colorScheme: colorScheme)
         }
-        .labelStyle(.iconOnly)
-        .font(.largeTitle)
-        .foregroundColor(colorScheme == .dark ? .white : .black)
-        .padding([.horizontal, .top], 10)
         .background(Color.gray.opacity(0.1))
         .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
             .onEnded { value in
@@ -72,6 +73,12 @@ struct BottomNavbarView: View {
                 }
             }
         )
+    }
+    
+    func toggleAddClimb() {
+        withAnimation {
+            addClimbIsShowing.toggle()
+        }
     }
     
     func showHome() {

@@ -92,7 +92,7 @@ struct ContentView: View {
                     
                     if isShowingFilterView {
                         List {
-                            FilteredClimbsView(format: filterFormats["allPast"]!, keyOrValue: todaysDate, filterValue: todaysDate, isDateView: true, numberOfResults: $numberOfResults) { (climb: Climb) in
+                            ForEach(climbs) { climb in
                                 NavigationLink(destination: ClimbView(climb: climb)) {
                                     ClimbRowView(climb: climb)
                                 }
